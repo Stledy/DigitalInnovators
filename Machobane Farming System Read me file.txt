@@ -1,0 +1,65 @@
+#Digital Innovators
+Purpose of this asssignment:
+In this project, we develop an assembly language  program to simulate the Machobane Farming system (MFS) in Lesotho, focusing on it's unique seasonal crop rotation and intercropping practice in the lowlands.
+
+In this project we have a manue for our user because some users would like to come and start planting while some are here to aminatin their crops and some are here to havest what they have planted a long time ago. So this menu serves all this users, the menu is as follows
+------THE MACHOBANE FARMING SYSTEM MENU-------
+1.Soil preparation
+2.Crop Planting
+3.Soil maintainance 
+4.Watering 
+5.Harvesting
+And here is to what each function does:
+1. Soil preparation:
+ This function directs the user to follow the steps taken under soil maintainance, which is making sure that the plot is well fertilised and there are no weeds on the plot.
+2. crop planting:
+ this fuction controls what is to be planted in the certain month and season eg In winter(April-May)we plant wheat, peas, and potatoes.Then we will see later as to how they will be intercropped or relay cropped.same as for summer (August-october), we plant maize, beans, pumpkin, sorghum, watermelon, and groundnut.
+ this function also tell which months the crops will be harvested.
+3.Soil_Maintainance: 
+this function checks the soil fertililty of the spoil and how the soil will be ready for crop or ready to be used.
+It rates the soil fertility according to the number of times manure was added in the plot.eg maximum manure is 4, if you add manure 2 times soil fertility is 45%.
+4.Watering:
+this function checks the moistre level in the plot for suitable crops.
+ Here we ask the user if they watered the plot if no we ask them whether the day was rainy if not we water the plats autometically using our system.
+  this is how we measure suitable watering for every plant,if it is in summer we water using 2 full watering cans in the morning and 2 full cans in the afternoon
+  but if it is in winter water using 1  full watering can late in the morning to avoid freezing plants and water using 1 watering acn in the early afternoon.   
+5. Harvesting:
+this function calculate the yield per plot using the formula below,
+  yield is eqaul to amount of crops *(multiplies by) yield per crop *(multiplied by) the soil fertility rate.
+
+This assignment is devided into simplest part to avoid complexity:
+Part 1:
+this is also a function that sections winter and summer and their harvesting months
+  for winter : the months for planting are April and May 
+             : and in those months we can offer the user to plant; wheat, peas, and potatoes 
+             : the harvesting months are January, February, and March, this will depend on which month the crops are ready for consumption
+  for summeer : the months for planting are August, September, and October.
+              : And in those months we can offer the usser to plant; maize, beans, pumpkin, sorghum, watermelon, and groundnuts.
+              : The harvesting months are November and December.
+Part 2:
+this is a function which shows which crops can be intercropped or relay cropped per season.
+    their growth and harvest times.
+  for winter: we can intercrop; 
+             wheat and peas: same growth, same harvest time 
+             peas and potatoes: same gwrowth but different harvest time 
+  for summer :we can intercrop;
+              beans, maize, and pumpkin (they are called three sisters):same growth, same harvest time
+              sorghum and maize : same growth same harvest time
+              watermelon and maize : same growth different harvest time
+              groundnut and beand : same growth and same harvest time
+Part 3:
+In this part soil maintainance and watering functions are our pioneer, they do all the work for us to ensure that the soil will be fit for our crops
+
+Part 4:
+the harvesting function will secure everything in this part. the harvest month for each season and it's crops, the factors the influence intercroping, soil fertility, and moisture level.
+  factors that influence growth: we made an equation of yield in the harvesting function in order to make things easy.
+  every moisture level is set in the way that it won't destroy the palnts similarly to soil fertility 
+we will make a typical example from the summer season:
+    intercropping the three sisters which are beans, maize, and pumpkin, they really help each other in growth. since beans are climbers, maize stalks helps to support them as they grow and pumpkin being runners provides mulch as a result retains moisture and warmth   that will sistain all this plants, and they don't  fight for nutrients from the soil because they have different rooth depths. therefore the yield of these three plants will be great and this shows or demonstrates the great benefit of sustainable agriculture in the lowlands of lesotho. 
+ 
+Part 5:
+All this functions working together makes up this part, where aour summer function will display our plot for the user and our soil fertility function will update us on our fertility rate and our watering function will take us through taking care of our plant or ut maybe call crop maintainance  and our harvesting function will take us through the expected yield.
+
+
+conclusion:
+This system will ensure that all crops grow successfully.
