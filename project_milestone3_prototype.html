@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Assembler Simulator</title>
+    <style>
+        /* Add your own styles here */
+    </style>
+</head>
+<body>
+    <h1>Assembler Simulator</h1>
+    
+    <div>
+        <label for="assemblyCode">Assembly Code:</label>
+        <textarea id="assemblyCode" rows="10" cols="50"></textarea>
+    </div>
+    
+    <button onclick="runSimulation()">Run</button>
+    
+    <div>
+        <h2>Register Values:</h2>
+        <table>
+            <tr>
+                <th>Register</th>
+                <th>Value</th>
+            </tr>
+            <tbody id="registerValues">
+                <!-- Register values will be dynamically added here -->
+            </tbody>
+        </table>
+    </div>
+    
+    <div>
+        <h2>Output:</h2>
+        <pre id="output"></pre>
+    </div>
+    
+    <script>
+        function runSimulation() {
+            // Get the assembly code from the textarea
+            const assemblyCode = document.getElementById('assemblyCode').value;
+
+            // Split the code into individual instructions
+            const instructions = assemblyCode.split('\n');
+
+            // Initialize registers
+            const registers = {
+                $0: 0,
+                $at: 0,
+                $v0: 0,
+                $ir: 0,
+                $a: 0,
+                $t0: 0,
+                $t1: 0,
+                $t2: 0,
+                $t3: 0,
+                $s0: 0,
+                $s1: 0,
+                $s2: 0,
+                $mdr: 0,
+                $ps: 0,
+                $fp: 0,
+                $ra: 0
+            };
+
+            // Initialize memory
+            const memory = {};
+
+            // Initialize output
+            let output = '';
+
+            // Execute instructions
+            for (let i = 0; i < instructions.length; i++) {
+                const instruction = instructions[i].trim();
+
+                // Ignore empty lines
+                if (instruction === '') {
+                    continue;
+                }
+
+                // Split the instruction into opcode and operands
+                const [opcode, ...operands] = instruction.split(' ');
+
+                // Execute different instruction types
+                switch (opcode) {
+                    case 'Add':
+                        executeAdd(operands, registers);
+                        break;
+                    case 'Subtract':
+                        executeSubtract(operands, registers);
+                        break;
+                    case 'Load':
+                        executeLoad(operands, registers);
+                        break;
+                    case 'Store':
+                        executeStore(operands, registers, memory);
+                        break;
+                    case 'And':
+                        executeAnd(operands, registers);
+                        break;
+                    case 'Slt':
+                        executeSlt(operands, registers);
+                        break;
+                    case 'li':
+                        executeLi(operands, registers);
+                        break;
+                    case 'la':
+                        executeLa(operands, registers);
+                        break;
+                    case 'syscall':
+                        executeSyscall(operands, registers, memory, output);
+                        break;
+                    default:
+                        output += 'Invalid instruction: ' + instruction + '\n';
+                        break;
+                }
+            }
+
+            // Update register values in the HTML
+            const registerValuesElement = document.getElementById('registerValues');
+            registerValuesElement.innerHTML = '';
+
+            for (const register in registers) {
+                const value = registers[register];
+
+                const row = document.createElement('tr');
+
+                const registerCell = document.createElement('td');
+                registerCell.textContent = register;
+                row.appendChild(registerCell);
+
+                const valueCell = document.createElement('td');
+                valueCell.textContent = value;
+                row.appendChild(valueCell);
+
+                registerValuesElement.appendChild(row);
+            }
+
+            // Update output in the HTML
+            const outputElement = document.getElementById('output');
+            outputElement.textContent = output;
+        }
+
+        // Add functions to handle individual opcodes
+        function executeAdd(operands, registers) {
+            registers[operands[2]] = registers[operands[0]] + registers[operands[1]];
+        }
+
+        function executeSubtract(operands, registers) {
+            registers[operands[2]] = registers[operands[0]] - registers[operands[1]];
+        }
+
+        function executeLoad(operands, registers) {
+            registers[operands[0]] = parseInt(operands[1]);
+        }
+
+        function executeStore(operands, registers, memory) {
+            const address = parseInt(operands[1]);
+            const value = registers[operands[0]];
+            memory[address] = value;
+        }
+
+        function executeAnd(operands, registers) {
+            registers[operands[2]] = registers[operands[0]] & registers[operands[1]];
+        }
+
+        function executeSlt(operands, registers) {
+            registers[operands[2]] = registers[operands[0]] < registers[operands[1]] ? 1 : 0;
+        }
+
+        function executeLi(operands, registers) {
+            registers[operands[0]] = parseInt(operands[1]);
+        }
+
+        function executeLa(operands, registers) {
+            // Implement the logic for loading the address
+            // For simplicity, let's assume operands[1] is a valid memory address
+            registers[operands[0]] = parseInt(operands[1]);
+        }
+
+        function executeSyscall(operands, registers, memory, output) {
+            switch (registers.$v0) {
+                case 1:
+                    output += registers.$a0;
+                    break;
+                case 4:
+                    output += getString(memory, registers.$a0);
+                    break;
+                default:
+                    output += 'Unsupported syscall: ' + registers.$v0 + '\n';
+                    break;
+            }
+        }
+
+        function getString(memory, address) {
+            // Implement logic to fetch a string from memory based on the address
+            // For simplicity, let's assume memory[address] contains the ASCII value of a character
+            let result = '';
+            while (memory[address] !== 0) {
+                result += String.fromCharCode(memory[address]);
+                address++;
+            }
+            return result;
+        }
+    </script>
+</body>
+</html>
